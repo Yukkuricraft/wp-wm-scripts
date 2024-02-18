@@ -1,0 +1,42 @@
+{
+  "name": "wp-scripts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "run-p type-check build-only",
+    "build-only": "rollup --config rollup.config.js",
+    "type-check": "tsc --noEmit",
+    "lint:js": "eslint --ext .js,.mjs,.vue,.ts .",
+    "fixlint:js": "eslint --ext .js,.vue,.ts . --fix",
+    "format-check": "prettier --check \"**/*.(md|yaml|json)\"",
+    "format": "prettier --write \"**/*.(md|yaml|json|js|ts)\""
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.9",
+    "@babel/preset-env": "^7.23.9",
+    "@babel/preset-typescript": "^7.23.3",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@tsconfig/recommended": "^1.0.3",
+    "@typescript-eslint/eslint-plugin": "^7.0.1",
+    "@typescript-eslint/parser": "^7.0.1",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-config-typescript": "^3.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.2.5",
+    "rollup": "^4.12.0",
+    "typescript": "^5.3.3"
+  },
+  "type": "module",
+  "dependencies": {
+    "core-js": "^3.36.0"
+  },
+  "packageManager": "yarn@3.6.1"
+}
