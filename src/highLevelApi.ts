@@ -20,6 +20,10 @@ export function getLayer(name: wp.StandardLayer): wp.Layer {
   return wp.getLayer().withName(name).go()
 }
 
+export function getFileLayer(file: string): wp.Layer {
+  return wp.getLayer().fromFile(file).go()
+}
+
 export function getWorldLayer(world: wp.World, name: string): wp.Layer {
   return wp.getLayer().fromWorld(world).withName(name).go()
 }
@@ -39,18 +43,16 @@ export function installCustomTerrain(terrain: wp.Terrain, world: wp.World, slot?
 
 export function getHeightMap(file: string, channel?: 'red' | 'green' | 'blue'): wp.HeightMap {
   const t = wp.getHeightMap().fromFile(file)
-  if (channel) {
-    switch (channel) {
-      case 'red':
-        return t.selectRedChannel().go()
-      case 'green':
-        return t.selectGreenChannel().go()
-      case 'blue':
-        return t.selectBlueChannel().go()
-    }
+  switch (channel) {
+    case 'red':
+      return t.selectRedChannel().go()
+    case 'green':
+      return t.selectGreenChannel().go()
+    case 'blue':
+      return t.selectBlueChannel().go()
+    case undefined:
+      return t.go()
   }
-
-  return t.go()
 }
 
 export function getMapFormat(id: wp.MapFormatId): wp.MapFormat {
@@ -103,7 +105,7 @@ export function createWorldFromHeightMap(
   return t.go()
 }
 
-interface HeightFilterArgs {
+export interface HeightFilterArgs {
   height: {
     set: 'above' | 'below'
     level: number
@@ -111,42 +113,42 @@ interface HeightFilterArgs {
   }
 }
 
-interface DegreesFilterArgs {
+export interface DegreesFilterArgs {
   slope: {
     set: 'above' | 'below'
     degrees: number
   }
 }
 
-interface OnlyExceptOnTerrain {
+export interface OnlyExceptOnTerrain {
   set: 'exceptOnTerrain' | 'onlyOnTerrain'
   terrain: number
 }
 
-interface OnlyExceptOnLayer {
+export interface OnlyExceptOnLayer {
   set: 'exceptOnLayer' | 'onlyOnLayer'
   layer: wp.Layer
 }
 
-interface OnlyExceptOnBiome {
+export interface OnlyExceptOnBiome {
   set: 'exceptOnBiome' | 'onlyOnBiome'
   biome: number
 }
 
-interface OnlyExceptOnAutoBiome {
+export interface OnlyExceptOnAutoBiome {
   set: 'exceptOnAutoBiome' | 'onlyOnAutoBiome'
   autoBiome?: number
 }
 
-interface OnlyExceptOnWater {
+export interface OnlyExceptOnWater {
   set: 'exceptOnWater' | 'onlyOnWater'
 }
 
-interface OnlyExceptOnLand {
+export interface OnlyExceptOnLand {
   set: 'exceptOnLand' | 'onlyOnLand'
 }
 
-interface OnlyExceptOnFilterArgs {
+export interface OnlyExceptOnFilterArgs {
   on:
     | OnlyExceptOnTerrain
     | OnlyExceptOnLayer
@@ -156,7 +158,7 @@ interface OnlyExceptOnFilterArgs {
     | OnlyExceptOnLand
 }
 
-type FilterArgs = HeightFilterArgs | DegreesFilterArgs | OnlyExceptOnFilterArgs
+export type FilterArgs = HeightFilterArgs | DegreesFilterArgs | OnlyExceptOnFilterArgs
 
 export interface Range {
   lower: number
@@ -279,7 +281,8 @@ export function applyHeightMapAsLayer(
   levels: HeightmapAsLayerLevel[],
   args?: {
     filter?: wp.Filter
-    applyTo?: 'surface' | 'nether' | 'end'
+    filterArgs?: FilterArgs
+    applyTo?: ApplyTo
     scale?: number
     shift?: {
       x: number
@@ -356,7 +359,7 @@ export function applyHeightMapToTerrain(
   args?: {
     filter?: wp.Filter
     filterArgs?: FilterArgs
-    applyTo?: 'surface' | 'nether' | 'end'
+    applyTo?: ApplyTo
     scale?: number
     shift?: {
       x: number

@@ -18,6 +18,132 @@
 
 'use strict';
 
+function ownKeys$2(e, r) {
+  var t = Object.keys(e);
+  if (Object.getOwnPropertySymbols) {
+    var o = Object.getOwnPropertySymbols(e);
+    r && (o = o.filter(function (r) {
+      return Object.getOwnPropertyDescriptor(e, r).enumerable;
+    })), t.push.apply(t, o);
+  }
+  return t;
+}
+function _objectSpread2(e) {
+  for (var r = 1; r < arguments.length; r++) {
+    var t = null != arguments[r] ? arguments[r] : {};
+    r % 2 ? ownKeys$2(Object(t), !0).forEach(function (r) {
+      _defineProperty(e, r, t[r]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$2(Object(t)).forEach(function (r) {
+      Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+    });
+  }
+  return e;
+}
+function _toPrimitive(t, r) {
+  if ("object" != typeof t || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != typeof i) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r ? String : Number)(t);
+}
+function _toPropertyKey(t) {
+  var i = _toPrimitive(t, "string");
+  return "symbol" == typeof i ? i : String(i);
+}
+function _defineProperty(obj, key, value) {
+  key = _toPropertyKey(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+}
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+  return arr2;
+}
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _createForOfIteratorHelper(o, allowArrayLike) {
+  var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"];
+  if (!it) {
+    if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
+      if (it) o = it;
+      var i = 0;
+      var F = function () {};
+      return {
+        s: F,
+        n: function () {
+          if (i >= o.length) return {
+            done: true
+          };
+          return {
+            done: false,
+            value: o[i++]
+          };
+        },
+        e: function (e) {
+          throw e;
+        },
+        f: F
+      };
+    }
+    throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+  var normalCompletion = true,
+    didErr = false,
+    err;
+  return {
+    s: function () {
+      it = it.call(o);
+    },
+    n: function () {
+      var step = it.next();
+      normalCompletion = step.done;
+      return step;
+    },
+    e: function (e) {
+      didErr = true;
+      err = e;
+    },
+    f: function () {
+      try {
+        if (!normalCompletion && it.return != null) it.return();
+      } finally {
+        if (didErr) throw err;
+      }
+    }
+  };
+}
+
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 var check = function (it) {
@@ -98,9 +224,9 @@ var createPropertyDescriptor$3 = function (bitmap, value) {
 
 var NATIVE_BIND$1 = functionBindNative;
 
-var FunctionPrototype$1 = Function.prototype;
-var call$3 = FunctionPrototype$1.call;
-var uncurryThisWithBind = NATIVE_BIND$1 && FunctionPrototype$1.bind.bind(call$3, call$3);
+var FunctionPrototype$2 = Function.prototype;
+var call$3 = FunctionPrototype$2.call;
+var uncurryThisWithBind = NATIVE_BIND$1 && FunctionPrototype$2.bind.bind(call$3, call$3);
 
 var functionUncurryThis = NATIVE_BIND$1 ? uncurryThisWithBind : function (fn) {
   return function () {
@@ -108,21 +234,21 @@ var functionUncurryThis = NATIVE_BIND$1 ? uncurryThisWithBind : function (fn) {
   };
 };
 
-var uncurryThis$c = functionUncurryThis;
+var uncurryThis$d = functionUncurryThis;
 
-var toString$2 = uncurryThis$c({}.toString);
-var stringSlice$1 = uncurryThis$c(''.slice);
+var toString$2 = uncurryThis$d({}.toString);
+var stringSlice$1 = uncurryThis$d(''.slice);
 
 var classofRaw$2 = function (it) {
   return stringSlice$1(toString$2(it), 8, -1);
 };
 
-var uncurryThis$b = functionUncurryThis;
+var uncurryThis$c = functionUncurryThis;
 var fails$8 = fails$b;
 var classof$4 = classofRaw$2;
 
 var $Object$3 = Object;
-var split = uncurryThis$b(''.split);
+var split = uncurryThis$c(''.split);
 
 // fallback for non-array-like ES3 and non-enumerable old V8 strings
 var indexedObject = fails$8(function () {
@@ -187,9 +313,9 @@ var getBuiltIn$3 = function (namespace, method) {
   return arguments.length < 2 ? aFunction(global$9[namespace]) : global$9[namespace] && global$9[namespace][method];
 };
 
-var uncurryThis$a = functionUncurryThis;
+var uncurryThis$b = functionUncurryThis;
 
-var objectIsPrototypeOf = uncurryThis$a({}.isPrototypeOf);
+var objectIsPrototypeOf = uncurryThis$b({}.isPrototypeOf);
 
 var engineUserAgent = typeof navigator != 'undefined' && String(navigator.userAgent) || '';
 
@@ -313,11 +439,11 @@ var sharedStore = {exports: {}};
 var global$6 = global$a;
 
 // eslint-disable-next-line es/no-object-defineproperty -- safe
-var defineProperty$1 = Object.defineProperty;
+var defineProperty$2 = Object.defineProperty;
 
 var defineGlobalProperty$3 = function (key, value) {
   try {
-    defineProperty$1(global$6, key, { value: value, configurable: true, writable: true });
+    defineProperty$2(global$6, key, { value: value, configurable: true, writable: true });
   } catch (error) {
     global$6[key] = value;
   } return value;
@@ -355,10 +481,10 @@ var toObject$3 = function (argument) {
   return $Object$1(requireObjectCoercible(argument));
 };
 
-var uncurryThis$9 = functionUncurryThis;
+var uncurryThis$a = functionUncurryThis;
 var toObject$2 = toObject$3;
 
-var hasOwnProperty = uncurryThis$9({}.hasOwnProperty);
+var hasOwnProperty = uncurryThis$a({}.hasOwnProperty);
 
 // `HasOwnProperty` abstract operation
 // https://tc39.es/ecma262/#sec-hasownproperty
@@ -367,11 +493,11 @@ var hasOwnProperty_1 = Object.hasOwn || function hasOwn(it, key) {
   return hasOwnProperty(toObject$2(it), key);
 };
 
-var uncurryThis$8 = functionUncurryThis;
+var uncurryThis$9 = functionUncurryThis;
 
 var id = 0;
 var postfix = Math.random();
-var toString$1 = uncurryThis$8(1.0.toString);
+var toString$1 = uncurryThis$9(1.0.toString);
 
 var uid$2 = function (key) {
   return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString$1(++id + postfix, 36);
@@ -443,19 +569,19 @@ var documentCreateElement = function (it) {
   return EXISTS$1 ? document$1.createElement(it) : {};
 };
 
-var DESCRIPTORS$7 = descriptors;
+var DESCRIPTORS$8 = descriptors;
 var fails$6 = fails$b;
 var createElement = documentCreateElement;
 
 // Thanks to IE8 for its funny defineProperty
-var ie8DomDefine = !DESCRIPTORS$7 && !fails$6(function () {
+var ie8DomDefine = !DESCRIPTORS$8 && !fails$6(function () {
   // eslint-disable-next-line es/no-object-defineproperty -- required for testing
   return Object.defineProperty(createElement('div'), 'a', {
     get: function () { return 7; }
   }).a !== 7;
 });
 
-var DESCRIPTORS$6 = descriptors;
+var DESCRIPTORS$7 = descriptors;
 var call = functionCall;
 var propertyIsEnumerableModule = objectPropertyIsEnumerable;
 var createPropertyDescriptor$2 = createPropertyDescriptor$3;
@@ -469,7 +595,7 @@ var $getOwnPropertyDescriptor$1 = Object.getOwnPropertyDescriptor;
 
 // `Object.getOwnPropertyDescriptor` method
 // https://tc39.es/ecma262/#sec-object.getownpropertydescriptor
-objectGetOwnPropertyDescriptor.f = DESCRIPTORS$6 ? $getOwnPropertyDescriptor$1 : function getOwnPropertyDescriptor(O, P) {
+objectGetOwnPropertyDescriptor.f = DESCRIPTORS$7 ? $getOwnPropertyDescriptor$1 : function getOwnPropertyDescriptor(O, P) {
   O = toIndexedObject$2(O);
   P = toPropertyKey$1(P);
   if (IE8_DOM_DEFINE$1) try {
@@ -480,12 +606,12 @@ objectGetOwnPropertyDescriptor.f = DESCRIPTORS$6 ? $getOwnPropertyDescriptor$1 :
 
 var objectDefineProperty = {};
 
-var DESCRIPTORS$5 = descriptors;
+var DESCRIPTORS$6 = descriptors;
 var fails$5 = fails$b;
 
 // V8 ~ Chrome 36-
 // https://bugs.chromium.org/p/v8/issues/detail?id=3334
-var v8PrototypeDefineBug = DESCRIPTORS$5 && fails$5(function () {
+var v8PrototypeDefineBug = DESCRIPTORS$6 && fails$5(function () {
   // eslint-disable-next-line es/no-object-defineproperty -- required for testing
   return Object.defineProperty(function () { /* empty */ }, 'prototype', {
     value: 42,
@@ -504,7 +630,7 @@ var anObject$2 = function (argument) {
   throw new $TypeError$2($String$1(argument) + ' is not an object');
 };
 
-var DESCRIPTORS$4 = descriptors;
+var DESCRIPTORS$5 = descriptors;
 var IE8_DOM_DEFINE = ie8DomDefine;
 var V8_PROTOTYPE_DEFINE_BUG = v8PrototypeDefineBug;
 var anObject$1 = anObject$2;
@@ -521,7 +647,7 @@ var WRITABLE = 'writable';
 
 // `Object.defineProperty` method
 // https://tc39.es/ecma262/#sec-object.defineproperty
-objectDefineProperty.f = DESCRIPTORS$4 ? V8_PROTOTYPE_DEFINE_BUG ? function defineProperty(O, P, Attributes) {
+objectDefineProperty.f = DESCRIPTORS$5 ? V8_PROTOTYPE_DEFINE_BUG ? function defineProperty(O, P, Attributes) {
   anObject$1(O);
   P = toPropertyKey(P);
   anObject$1(Attributes);
@@ -548,30 +674,30 @@ objectDefineProperty.f = DESCRIPTORS$4 ? V8_PROTOTYPE_DEFINE_BUG ? function defi
   return O;
 };
 
-var DESCRIPTORS$3 = descriptors;
+var DESCRIPTORS$4 = descriptors;
 var definePropertyModule$3 = objectDefineProperty;
 var createPropertyDescriptor$1 = createPropertyDescriptor$3;
 
-var createNonEnumerableProperty$2 = DESCRIPTORS$3 ? function (object, key, value) {
+var createNonEnumerableProperty$2 = DESCRIPTORS$4 ? function (object, key, value) {
   return definePropertyModule$3.f(object, key, createPropertyDescriptor$1(1, value));
 } : function (object, key, value) {
   object[key] = value;
   return object;
 };
 
-var makeBuiltIn$2 = {exports: {}};
+var makeBuiltIn$3 = {exports: {}};
 
-var DESCRIPTORS$2 = descriptors;
+var DESCRIPTORS$3 = descriptors;
 var hasOwn$4 = hasOwnProperty_1;
 
-var FunctionPrototype = Function.prototype;
+var FunctionPrototype$1 = Function.prototype;
 // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
-var getDescriptor = DESCRIPTORS$2 && Object.getOwnPropertyDescriptor;
+var getDescriptor = DESCRIPTORS$3 && Object.getOwnPropertyDescriptor;
 
-var EXISTS = hasOwn$4(FunctionPrototype, 'name');
+var EXISTS = hasOwn$4(FunctionPrototype$1, 'name');
 // additional protection from minified / mangled / dropped function names
 var PROPER = EXISTS && (function something() { /* empty */ }).name === 'something';
-var CONFIGURABLE = EXISTS && (!DESCRIPTORS$2 || (DESCRIPTORS$2 && getDescriptor(FunctionPrototype, 'name').configurable));
+var CONFIGURABLE = EXISTS && (!DESCRIPTORS$3 || (DESCRIPTORS$3 && getDescriptor(FunctionPrototype$1, 'name').configurable));
 
 var functionName = {
   EXISTS: EXISTS,
@@ -579,16 +705,16 @@ var functionName = {
   CONFIGURABLE: CONFIGURABLE
 };
 
-var uncurryThis$7 = functionUncurryThis;
+var uncurryThis$8 = functionUncurryThis;
 var isCallable$6 = isCallable$c;
 var store$1 = sharedStoreExports;
 
-var functionToString = uncurryThis$7(Function.toString);
+var functionToString$1 = uncurryThis$8(Function.toString);
 
 // this helper broken in `core-js@3.4.1-3.4.4`, so we can't use `shared` helper
 if (!isCallable$6(store$1.inspectSource)) {
   store$1.inspectSource = function (it) {
-    return functionToString(it);
+    return functionToString$1(it);
   };
 }
 
@@ -683,11 +809,11 @@ var internalState = {
   getterFor: getterFor
 };
 
-var uncurryThis$6 = functionUncurryThis;
+var uncurryThis$7 = functionUncurryThis;
 var fails$4 = fails$b;
 var isCallable$4 = isCallable$c;
 var hasOwn$2 = hasOwnProperty_1;
-var DESCRIPTORS$1 = descriptors;
+var DESCRIPTORS$2 = descriptors;
 var CONFIGURABLE_FUNCTION_NAME = functionName.CONFIGURABLE;
 var inspectSource$1 = inspectSource$2;
 var InternalStateModule = internalState;
@@ -696,33 +822,33 @@ var enforceInternalState = InternalStateModule.enforce;
 var getInternalState = InternalStateModule.get;
 var $String = String;
 // eslint-disable-next-line es/no-object-defineproperty -- safe
-var defineProperty = Object.defineProperty;
-var stringSlice = uncurryThis$6(''.slice);
-var replace = uncurryThis$6(''.replace);
-var join = uncurryThis$6([].join);
+var defineProperty$1 = Object.defineProperty;
+var stringSlice = uncurryThis$7(''.slice);
+var replace = uncurryThis$7(''.replace);
+var join = uncurryThis$7([].join);
 
-var CONFIGURABLE_LENGTH = DESCRIPTORS$1 && !fails$4(function () {
-  return defineProperty(function () { /* empty */ }, 'length', { value: 8 }).length !== 8;
+var CONFIGURABLE_LENGTH = DESCRIPTORS$2 && !fails$4(function () {
+  return defineProperty$1(function () { /* empty */ }, 'length', { value: 8 }).length !== 8;
 });
 
 var TEMPLATE = String(String).split('String');
 
-var makeBuiltIn$1 = makeBuiltIn$2.exports = function (value, name, options) {
+var makeBuiltIn$2 = makeBuiltIn$3.exports = function (value, name, options) {
   if (stringSlice($String(name), 0, 7) === 'Symbol(') {
     name = '[' + replace($String(name), /^Symbol\(([^)]*)\).*$/, '$1') + ']';
   }
   if (options && options.getter) name = 'get ' + name;
   if (options && options.setter) name = 'set ' + name;
   if (!hasOwn$2(value, 'name') || (CONFIGURABLE_FUNCTION_NAME && value.name !== name)) {
-    if (DESCRIPTORS$1) defineProperty(value, 'name', { value: name, configurable: true });
+    if (DESCRIPTORS$2) defineProperty$1(value, 'name', { value: name, configurable: true });
     else value.name = name;
   }
   if (CONFIGURABLE_LENGTH && options && hasOwn$2(options, 'arity') && value.length !== options.arity) {
-    defineProperty(value, 'length', { value: options.arity });
+    defineProperty$1(value, 'length', { value: options.arity });
   }
   try {
     if (options && hasOwn$2(options, 'constructor') && options.constructor) {
-      if (DESCRIPTORS$1) defineProperty(value, 'prototype', { writable: false });
+      if (DESCRIPTORS$2) defineProperty$1(value, 'prototype', { writable: false });
     // in V8 ~ Chrome 53, prototypes of some methods, like `Array.prototype.values`, are non-writable
     } else if (value.prototype) value.prototype = undefined;
   } catch (error) { /* empty */ }
@@ -734,22 +860,22 @@ var makeBuiltIn$1 = makeBuiltIn$2.exports = function (value, name, options) {
 
 // add fake Function#toString for correct work wrapped methods / constructors with methods like LoDash isNative
 // eslint-disable-next-line no-extend-native -- required
-Function.prototype.toString = makeBuiltIn$1(function toString() {
+Function.prototype.toString = makeBuiltIn$2(function toString() {
   return isCallable$4(this) && getInternalState(this).source || inspectSource$1(this);
 }, 'toString');
 
-var makeBuiltInExports = makeBuiltIn$2.exports;
+var makeBuiltInExports = makeBuiltIn$3.exports;
 
 var isCallable$3 = isCallable$c;
 var definePropertyModule$2 = objectDefineProperty;
-var makeBuiltIn = makeBuiltInExports;
+var makeBuiltIn$1 = makeBuiltInExports;
 var defineGlobalProperty$1 = defineGlobalProperty$3;
 
 var defineBuiltIn$2 = function (O, key, value, options) {
   if (!options) options = {};
   var simple = options.enumerable;
   var name = options.name !== undefined ? options.name : key;
-  if (isCallable$3(value)) makeBuiltIn(value, name, options);
+  if (isCallable$3(value)) makeBuiltIn$1(value, name, options);
   if (options.global) {
     if (simple) O[key] = value;
     else defineGlobalProperty$1(key, value);
@@ -857,13 +983,13 @@ var arrayIncludes = {
   indexOf: createMethod$1(false)
 };
 
-var uncurryThis$5 = functionUncurryThis;
+var uncurryThis$6 = functionUncurryThis;
 var hasOwn$1 = hasOwnProperty_1;
 var toIndexedObject = toIndexedObject$3;
 var indexOf = arrayIncludes.indexOf;
 var hiddenKeys$1 = hiddenKeys$3;
 
-var push$1 = uncurryThis$5([].push);
+var push$1 = uncurryThis$6([].push);
 
 var objectKeysInternal = function (object, names) {
   var O = toIndexedObject(object);
@@ -907,12 +1033,12 @@ var objectGetOwnPropertySymbols = {};
 objectGetOwnPropertySymbols.f = Object.getOwnPropertySymbols;
 
 var getBuiltIn$1 = getBuiltIn$3;
-var uncurryThis$4 = functionUncurryThis;
+var uncurryThis$5 = functionUncurryThis;
 var getOwnPropertyNamesModule = objectGetOwnPropertyNames;
 var getOwnPropertySymbolsModule = objectGetOwnPropertySymbols;
 var anObject = anObject$2;
 
-var concat = uncurryThis$4([].concat);
+var concat = uncurryThis$5([].concat);
 
 // all object keys, includes non-enumerable and symbols
 var ownKeys$1 = getBuiltIn$1('Reflect', 'ownKeys') || function ownKeys(it) {
@@ -1033,12 +1159,12 @@ var doesNotExceedSafeInteger$1 = function (it) {
   return it;
 };
 
-var DESCRIPTORS = descriptors;
+var DESCRIPTORS$1 = descriptors;
 var definePropertyModule = objectDefineProperty;
 var createPropertyDescriptor = createPropertyDescriptor$3;
 
 var createProperty$1 = function (object, key, value) {
-  if (DESCRIPTORS) definePropertyModule.f(object, key, createPropertyDescriptor(0, value));
+  if (DESCRIPTORS$1) definePropertyModule.f(object, key, createPropertyDescriptor(0, value));
   else object[key] = value;
 };
 
@@ -1081,7 +1207,7 @@ var classof$2 = TO_STRING_TAG_SUPPORT$2 ? classofRaw$1 : function (it) {
     : (result = classofRaw$1(O)) === 'Object' && isCallable$1(O.callee) ? 'Arguments' : result;
 };
 
-var uncurryThis$3 = functionUncurryThis;
+var uncurryThis$4 = functionUncurryThis;
 var fails$2 = fails$b;
 var isCallable = isCallable$c;
 var classof$1 = classof$2;
@@ -1091,7 +1217,7 @@ var inspectSource = inspectSource$2;
 var noop = function () { /* empty */ };
 var construct = getBuiltIn('Reflect', 'construct');
 var constructorRegExp = /^\s*(?:class|function)\b/;
-var exec = uncurryThis$3(constructorRegExp.exec);
+var exec = uncurryThis$4(constructorRegExp.exec);
 var INCORRECT_TO_STRING = !constructorRegExp.test(noop);
 
 var isConstructorModern = function isConstructor(argument) {
@@ -1242,30 +1368,39 @@ $$1({ target: 'Array', proto: true, arity: 1, forced: FORCED }, {
   }
 });
 
-function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
-}
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
-}
-function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
-}
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-}
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-  return arr2;
-}
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+var makeBuiltIn = makeBuiltInExports;
+var defineProperty = objectDefineProperty;
+
+var defineBuiltInAccessor$1 = function (target, name, descriptor) {
+  if (descriptor.get) makeBuiltIn(descriptor.get, name, { getter: true });
+  if (descriptor.set) makeBuiltIn(descriptor.set, name, { setter: true });
+  return defineProperty.f(target, name, descriptor);
+};
+
+var DESCRIPTORS = descriptors;
+var FUNCTION_NAME_EXISTS = functionName.EXISTS;
+var uncurryThis$3 = functionUncurryThis;
+var defineBuiltInAccessor = defineBuiltInAccessor$1;
+
+var FunctionPrototype = Function.prototype;
+var functionToString = uncurryThis$3(FunctionPrototype.toString);
+var nameRE = /function\b(?:\s|\/\*[\S\s]*?\*\/|\/\/[^\n\r]*[\n\r]+)*([^\s(/]*)/;
+var regExpExec = uncurryThis$3(nameRE.exec);
+var NAME = 'name';
+
+// Function instances `.name` property
+// https://tc39.es/ecma262/#sec-function-instances-name
+if (DESCRIPTORS && !FUNCTION_NAME_EXISTS) {
+  defineBuiltInAccessor(FunctionPrototype, NAME, {
+    configurable: true,
+    get: function () {
+      try {
+        return regExpExec(nameRE, functionToString(this))[1];
+      } catch (error) {
+        return '';
+      }
+    }
+  });
 }
 
 var classofRaw = classofRaw$2;
@@ -1409,19 +1544,32 @@ function saveWorld(world, file) {
 function getLayer(name) {
   return wp.getLayer().withName(name).go();
 }
+function getFileLayer(file) {
+  return wp.getLayer().fromFile(file).go();
+}
+function getTerrain(file) {
+  return wp.getTerrain().fromFile(file).go();
+}
+function installCustomTerrain(terrain, world, slot) {
+  var t = wp.installCustomTerrain(terrain).toWorld(world);
+  if (slot) {
+    return t.inSlot(slot).go();
+  } else {
+    return t.go();
+  }
+}
 function getHeightMap(file, channel) {
   var t = wp.getHeightMap().fromFile(file);
-  if (channel) {
-    switch (channel) {
-      case 'red':
-        return t.selectRedChannel().go();
-      case 'green':
-        return t.selectGreenChannel().go();
-      case 'blue':
-        return t.selectBlueChannel().go();
-    }
+  switch (channel) {
+    case 'red':
+      return t.selectRedChannel().go();
+    case 'green':
+      return t.selectGreenChannel().go();
+    case 'blue':
+      return t.selectBlueChannel().go();
+    case undefined:
+      return t.go();
   }
-  return t.go();
 }
 function getMapFormat(id) {
   return wp.getMapFormat().withId(id).go();
@@ -1939,13 +2087,60 @@ var _ref = params,
   resolution = _ref.resolution,
   wmOutput = _ref.wmOutput;
 print(wmOutput);
-//// @ts-expect-error WP global
-//const scriptDirLoc = scriptDir
-
 function outputFile(outputType) {
   return "".concat(wmOutput, "/").concat(extent, "/").concat(resolution, "/").concat(outputType, " out.png");
 }
-var heightmap = getHeightMap(outputFile('Heightmap'));
+var heightmapCache = {};
+function getHeightmapCached(file, channel) {
+  var key = channel ? "".concat(file, "[").concat(channel, "]") : file;
+  if (heightmapCache[key]) {
+    return heightmapCache[key];
+  } else {
+    var _heightmap = getHeightMap(file, channel);
+    heightmapCache[key] = _heightmap;
+    return _heightmap;
+  }
+}
+function runSteps(world, steps) {
+  var _iterator = _createForOfIteratorHelper(steps),
+    _step;
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var step = _step.value;
+      print("Running \"".concat(step.name, "\""));
+      try {
+        var _heightmap2 = getHeightmapCached(outputFile(step.output), step.channel);
+        if ('terrainLevels' in step) {
+          if (step.terrainLevels.length == 0) {
+            print('Empty terrainLevels');
+          }
+          applyHeightMapToTerrain(_heightmap2, world, step.terrainLevels, {
+            filterArgs: step.filterArgs
+          });
+        } else {
+          if (step.layerLevels.length == 0) {
+            print('Empty layerLevels');
+          }
+          applyHeightMapAsLayer(_heightmap2, world, step.layer, step.layerLevels, {
+            filterArgs: step.filterArgs
+          });
+        }
+      } catch (e) {
+        print("Skipping \"".concat(step.name, "\" as output file missing"));
+        print(e);
+      }
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+}
+
+//// @ts-expect-error WP global
+//const scriptDirLoc = scriptDir
+
+var heightmap = getHeightmapCached(outputFile('Heightmap'));
 print('Got heightmap');
 var I2_MAX = 65535;
 var world = createWorldFromHeightMap(heightmap, {
@@ -1972,121 +2167,180 @@ function anglei2(angle) {
   var ratio = angle / 90;
   return ratio * I2_MAX;
 }
-applyHeightMapToTerrain(heightmap, world, [{
-  fromLevels: {
-    lower: 0,
-    upper: leveli2(180) - 1
-  },
-  toTerrain: Terrain.grass
+function biomeLevels(color, oneBit) {
+  var res = [];
+  for (var i = 0; i < 16; i++) {
+    for (var j = 0; j < 16; j++) {
+      res.push({
+        fromColor: _objectSpread2(_objectSpread2({}, {
+          red: 0,
+          blue: 0,
+          green: 0
+        }), {}, _defineProperty({}, color, i * 16 + j)),
+        toLevel: oneBit ? Math.min(1, i) : i
+      });
+    }
+  }
+  return res;
+}
+var snowTerrain = getTerrain('terrains/Snow_Ice.terrain');
+var snowTerrainId = installCustomTerrain(snowTerrain, world);
+runSteps(world, [{
+  output: 'Heightmap',
+  name: 'apply heightmap terrain',
+  terrainLevels: [{
+    fromLevels: {
+      lower: 0,
+      upper: leveli2(180) - 1
+    },
+    toTerrain: Terrain.grass
+  }, {
+    fromLevels: {
+      lower: leveli2(180),
+      upper: leveli2(200) - 1
+    },
+    toTerrain: Terrain.andesite
+  }, {
+    fromLevels: {
+      lower: leveli2(200),
+      upper: I2_MAX
+    },
+    toTerrain: Terrain.stone
+  }]
 }, {
-  fromLevels: {
-    lower: leveli2(180),
-    upper: leveli2(200) - 1
-  },
-  toTerrain: Terrain.andesite
+  output: 'Slope',
+  name: 'apply slope terrain',
+  terrainLevels: [{
+    fromLevels: {
+      lower: anglei2(45),
+      upper: anglei2(48) - 1
+    },
+    toTerrain: Terrain.mossyCobblestone
+  }, {
+    fromLevels: {
+      lower: anglei2(48),
+      upper: anglei2(51) - 1
+    },
+    toTerrain: Terrain.cobblestone
+  }, {
+    fromLevels: {
+      lower: anglei2(51),
+      upper: anglei2(54) - 1
+    },
+    toTerrain: Terrain.andesite
+  }, {
+    fromLevels: {
+      lower: anglei2(54),
+      upper: I2_MAX
+    },
+    toTerrain: Terrain.stone
+  }]
 }, {
-  fromLevels: {
-    lower: leveli2(200),
-    upper: I2_MAX
-  },
-  toTerrain: Terrain.stone
-}]);
-print('Applied heightmap terrain');
-var slope = getHeightMap(outputFile('Slope'));
-applyHeightMapToTerrain(slope, world, [{
-  fromLevels: {
-    lower: anglei2(45),
-    upper: anglei2(48) - 1
-  },
-  toTerrain: Terrain.mossyCobblestone
+  output: 'Erosion deposit',
+  name: 'apply erosion deposit terrain',
+  terrainLevels: [{
+    fromLevel: I2_MAX,
+    toTerrain: Terrain.tuff
+  }]
 }, {
-  fromLevels: {
-    lower: anglei2(48),
-    upper: anglei2(51) - 1
-  },
-  toTerrain: Terrain.cobblestone
+  output: 'Talus',
+  name: 'apply talus terrain',
+  terrainLevels: [{
+    fromLevel: I2_MAX,
+    toTerrain: Terrain.gravel
+  }]
 }, {
-  fromLevels: {
-    lower: anglei2(51),
-    upper: anglei2(54) - 1
-  },
-  toTerrain: Terrain.andesite
-}, {
-  fromLevels: {
-    lower: anglei2(54),
-    upper: I2_MAX
-  },
-  toTerrain: Terrain.stone
-}]);
-print('Applied slope terrain');
-applyHeightMapToTerrain(getHeightMap(outputFile('Erosion deposit')), world, [{
-  fromLevel: I2_MAX,
-  toTerrain: Terrain.tuff
-}]);
-print('Applied erosion deposit terrain');
-applyHeightMapToTerrain(getHeightMap(outputFile('Talus')), world, [{
-  fromLevel: I2_MAX,
-  toTerrain: Terrain.gravel
-}]);
-print('Applied talus terrain');
-applyHeightMapToTerrain(getHeightMap(outputFile('Riverbank')), world, [{
-  fromLevels: {
-    lower: I2_MAX * 0.8,
-    upper: I2_MAX
-  },
-  toTerrain: Terrain.sand
-}], {
+  output: 'Riverbank',
+  name: 'apply riverbank terrain',
+  terrainLevels: [{
+    fromLevels: {
+      lower: I2_MAX * 0.8,
+      upper: I2_MAX
+    },
+    toTerrain: Terrain.sand
+  }],
   filterArgs: {
     on: {
       set: 'onlyOnTerrain',
       terrain: Terrain.grass
     }
   }
-});
-print('Applied riverbank terrain');
-var river = getHeightMap(outputFile('River'));
-applyHeightMapToTerrain(river, world, [{
-  fromLevel: I2_MAX,
-  toTerrain: Terrain.coarseDirt
-}], {
+}, {
+  output: 'River',
+  name: 'apply river terrain 1',
+  terrainLevels: [{
+    fromLevel: I2_MAX,
+    toTerrain: Terrain.coarseDirt
+  }],
   filterArgs: {
     on: {
       set: 'onlyOnTerrain',
       terrain: Terrain.grass
     }
   }
-});
-applyHeightMapToTerrain(river, world, [{
-  fromLevel: I2_MAX,
-  toTerrain: Terrain.coarseDirt
-}], {
+}, {
+  output: 'River',
+  name: 'apply river terrain 2',
+  terrainLevels: [{
+    fromLevel: I2_MAX,
+    toTerrain: Terrain.coarseDirt
+  }],
   filterArgs: {
     on: {
       set: 'onlyOnTerrain',
       terrain: Terrain.sand
     }
   }
-});
-print('Applied river terrain');
-var snow = getHeightMap(outputFile('Snow'));
-applyHeightMapToTerrain(snow, world, [{
-  fromLevel: I2_MAX,
-  toTerrain: Terrain.deepSnow // TODO: Make a custom terrain for snow eventually
-}]);
-applyHeightMapAsLayer(snow, world, getLayer('Frost'), [{
-  fromLevels: {
-    lower: 0,
-    upper: I2_MAX - 1
-  },
-  toLevel: 0
 }, {
-  fromLevel: I2_MAX,
-  toLevel: 1
+  output: 'Snow',
+  name: 'apply snow terrain',
+  terrainLevels: [{
+    fromLevel: I2_MAX,
+    toTerrain: snowTerrainId
+  }]
+}, {
+  output: 'Snow',
+  name: 'apply frost layer',
+  layer: getLayer('Frost'),
+  layerLevels: [{
+    fromLevels: {
+      lower: 0,
+      upper: I2_MAX - 1
+    },
+    toLevel: 0
+  }, {
+    fromLevel: I2_MAX,
+    toLevel: 1
+  }]
+}, {
+  output: 'Biome1',
+  name: 'apply biomes FoM',
+  layer: getFileLayer('layers/Forest of Magic Combined.layer'),
+  layerLevels: biomeLevels('red')
+}, {
+  output: 'Biome1',
+  name: 'apply biomes YF',
+  layer: getFileLayer('layers/Youkai Forest Combined.layer'),
+  layerLevels: biomeLevels('blue')
+}, {
+  output: 'Biome1',
+  name: 'apply biomes sunflowers',
+  layer: getFileLayer('layers/Sunflowers.layer'),
+  layerLevels: biomeLevels('green', true)
+}, {
+  output: 'Biome2',
+  name: 'apply biomes BF',
+  layer: getFileLayer('layers/Bamboo Forest.layer'),
+  layerLevels: biomeLevels('red', true)
+}, {
+  output: 'Biome2',
+  name: 'apply biomes random trees',
+  layer: getFileLayer('layers/RandomTrees.layer'),
+  layerLevels: biomeLevels('green')
 }]);
-print('Applied snow terrain');
-saveWorld(world, "".concat(extent, "-").concat(resolution, ".world"));
 world.setAllowCheats(true);
 world.setCreateGoodiesChest(false);
 //world.setGameType('CREATIVE')
 
+saveWorld(world, "".concat(extent, "-").concat(resolution, ".world"));
 print('Saved world');
